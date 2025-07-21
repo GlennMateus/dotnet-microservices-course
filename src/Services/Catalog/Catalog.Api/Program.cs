@@ -1,24 +1,31 @@
-using BuildingBlocks.Behaviours;
+using BuildingBlocks.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
+var programAssembly = typeof(Program).Assembly;
 
 // Add Services to the container
-builder.Services.AddCarter();
 builder.Services.AddMediatR(config => { 
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    config.RegisterServicesFromAssembly(programAssembly);
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddValidatorsFromAssembly(programAssembly);
 
+builder.Services.AddCarter();
 builder.Services.AddMarten(opt =>
 {
     opt.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
-var app = builder.Build();
+if(builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
 
-// Configure the HTTP request pipeline
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+var app = builder.Build();
 app.MapCarter();
+
+app.UseExceptionHandler(opt => { });
 
 app.Run();

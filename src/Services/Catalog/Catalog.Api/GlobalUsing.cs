@@ -1,5 +1,8 @@
-﻿global using BuildingBlocks.CQRS;
+﻿global using BuildingBlocks.Behaviours;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Exceptions.Handler;
 global using Carter;
+global using Catalog.Api.Data;
 global using Catalog.Api.Entities;
 global using Catalog.Api.Exceptions;
 global using FluentValidation;

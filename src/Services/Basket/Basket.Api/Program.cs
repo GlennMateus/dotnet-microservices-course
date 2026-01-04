@@ -1,4 +1,3 @@
-
 using Basket.Api.Configuration;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -6,16 +5,14 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
-builder.Services.AddApplicationServices();
-
+builder.Services
+    .AddApplicationServices()
 // Data services
-builder.Services.AddDataServices(builder.Configuration);
-
+    .AddDataServices(builder.Configuration)
 // Grpc Services
-builder.Services.AddGrpcServices(builder.Configuration);
-
+    .AddGrpcServices(builder.Configuration)
 // Cross cutting services
-builder.Services.AddCrossCuttingServices(builder.Configuration);
+    .AddCrossCuttingServices(builder.Configuration);
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@ namespace Basket.Api.Configuration;
 
 public static class ServicesConfiguration
 {
-    public static void AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         var programAssembly = typeof(Program).Assembly;
         services.AddCarter();
@@ -14,9 +14,11 @@ public static class ServicesConfiguration
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+
+        return services;
     }
 
-    public static void AddDataServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMarten(options =>
         {
@@ -31,17 +33,21 @@ public static class ServicesConfiguration
         {
             options.Configuration = configuration.GetConnectionString("Redis")!;
         });
+
+        return services;
     }
 
-    public static void AddCrossCuttingServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddCrossCuttingServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddExceptionHandler<CustomExceptionHandler>();
         services.AddHealthChecks()
             .AddNpgSql(configuration.GetConnectionString("Database")!)
             .AddRedis(configuration.GetConnectionString("Redis")!);
+
+        return services;
     }
 
-    public static void AddGrpcServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddGrpcServices(this IServiceCollection services, IConfiguration configuration)
     {
         services
         .AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
@@ -58,5 +64,7 @@ public static class ServicesConfiguration
 
             return handler;
         });
+
+        return services;
     }
 }

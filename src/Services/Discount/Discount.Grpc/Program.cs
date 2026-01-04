@@ -17,7 +17,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseMigration();
 
-if (builder.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
     app.MapGrpcReflectionService();
 
 app.MapGrpcService<DiscountService>();

@@ -25,7 +25,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.ComplexProperty(
             o => o.OrderName, nameBuilder =>
             {
-                nameBuilder.Property(n=>n.Value)
+                nameBuilder.Property(n => n.Value)
                     .HasColumnName(nameof(Order.OrderName))
                     .HasMaxLength(100)
                     .IsRequired();
@@ -37,7 +37,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                 addressBuilder.Property(a => a.FirstName)
                     .HasMaxLength(50)
                     .IsRequired();
-                
+
                 addressBuilder.Property(a => a.LastName)
                     .HasMaxLength(50)
                     .IsRequired();
@@ -45,7 +45,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                 addressBuilder.Property(a => a.Email)
                     .HasMaxLength(50);
 
-                addressBuilder.Property(a=>a.AddressLine)
+                addressBuilder.Property(a => a.AddressLine)
                     .HasMaxLength(50)
                     .IsRequired();
 
@@ -56,7 +56,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                     .HasMaxLength(50);
 
                 addressBuilder.Property(a => a.ZipCode)
-                    .HasMaxLength(5)
+                    .HasMaxLength(10)
                     .IsRequired();
             });
 
@@ -85,14 +85,14 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                     .HasMaxLength(50);
 
                 addressBuilder.Property(a => a.ZipCode)
-                    .HasMaxLength(5)
+                    .HasMaxLength(10)
                     .IsRequired();
             });
 
         builder.ComplexProperty(
-            o =>o.Payment, paymentBuilder =>
+            o => o.Payment, paymentBuilder =>
             {
-                paymentBuilder.Property(p=>p.CarName)
+                paymentBuilder.Property(p => p.CardName)
                     .HasMaxLength(50);
 
                 paymentBuilder.Property(p => p.CardNumber)
@@ -103,7 +103,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
                     .HasMaxLength(10)
                     .IsRequired();
 
-                paymentBuilder.Property(p => p.CVV)
+                paymentBuilder.Property(p => p.Cvv)
                     .HasMaxLength(3);
 
                 paymentBuilder.Property(p => p.PaymentMethod);

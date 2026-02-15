@@ -11,6 +11,8 @@ builder.Services
     .AddDataServices(builder.Configuration)
 // Grpc Services
     .AddGrpcServices(builder.Configuration)
+// Messaging services
+    .AddMessageBroker(builder.Configuration)
 // Cross cutting services
     .AddCrossCuttingServices(builder.Configuration);
 

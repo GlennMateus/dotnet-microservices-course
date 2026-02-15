@@ -1,5 +1,4 @@
 ﻿using Discount.Grpc;
-using JasperFx.Events.Daemon;
 
 namespace Basket.Api.Basket.StoreBasket;
 
